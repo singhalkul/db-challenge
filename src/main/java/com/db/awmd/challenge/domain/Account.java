@@ -2,12 +2,12 @@ package com.db.awmd.challenge.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.math.BigDecimal;
 
 @Data
 public class Account {
@@ -18,7 +18,7 @@ public class Account {
 
   @NotNull
   @Min(value = 0, message = "Initial balance must be positive.")
-  private BigDecimal balance;
+  private final BigDecimal balance;
 
   public Account(String accountId) {
     this.accountId = accountId;
@@ -27,7 +27,7 @@ public class Account {
 
   @JsonCreator
   public Account(@JsonProperty("accountId") String accountId,
-    @JsonProperty("balance") BigDecimal balance) {
+                 @JsonProperty("balance") BigDecimal balance) {
     this.accountId = accountId;
     this.balance = balance;
   }
